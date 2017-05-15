@@ -1,0 +1,136 @@
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+#myTable th, #myTable td {
+  text-align: center;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myName  {
+  text-decoration: none;
+  color: black;
+}
+#myLastName  {
+  text-decoration: none;
+  color: black;
+}
+
+#myTable th:hover{
+  background-color: #e1f0f2;
+}
+#myData {
+  text-transform: capitalize;
+}
+#addNew{
+  margin-left: 10px;
+  margin-top: 1px;
+
+}
+#myIcons a:link{
+  text-decoration: none;
+}
+#myEmail {
+  text-transform: lowercase;
+}
+</style>
+<!--<script src="../node_modules/angular/angular.min.js"></script>
+	<script src="../releases/angular-input-masks-dependencies.js"></script>
+	<script src="../releases/angular-input-masks.us.js"></script> !-->
+<div class="container">
+  <h2>AGENDA</h2>
+  <h4>List of Contacts</h4>
+  <a
+   id="addNew"  
+   href="#"
+   class="btn btn-lg btn-success"
+   style="float: right"
+   ui-sref="contacts:new">
+   <span class="glyphicon glyphicon-plus"></span>
+    Add New
+   </a>
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+          <input 
+            type="text" 
+            id="myInput" 
+            placeholder="Search for names..." 
+            title="Type in a name"
+            ng-model="searchText">
+      </div>
+    </div>
+  </form>      
+  <table id= "myTable" class="table table-hover">
+    <thead>
+      <tr class="header">
+        <th>
+          <a id="myName" href="#" ng-click="$ctrl.sortType = 'name'; $ctrl.sortReverse = !$ctrl.sortReverse">
+          Name
+          <span ng-show="$ctrl.sortType == 'name' && !$ctrl.sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="$ctrl.sortType == 'name' && $ctrl.sortReverse" class="fa fa-caret-up"></span>
+          </a>
+          </th>
+        <th>
+          <a id="myLastName" href="#" ng-click="$ctrl.sortType = 'lastName'; $ctrl.sortReverse = !$ctrl.sortReverse">
+          Last Name
+          <span ng-show="$ctrl.sortType == 'lastName' && !$ctrl.sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="$ctrl.sortType == 'lastName' && $ctrl.sortReverse" class="fa fa-caret-up"></span>
+          </a>
+          </th>
+        <th>E-mail</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Birthday</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="myData" ng-repeat="contact in $ctrl.contactsList | filter:searchText | orderBy: $ctrl.sortType : $ctrl.sortReverse">
+        <td>{{contact.name}}</td>
+        <td>{{contact.lastName}}</td>
+        <td id="myEmail">{{contact.email}}</td>
+        <td>{{contact.phoneNumber}}</td>
+        <td>{{contact.address}}</td>
+        <td>{{contact.birthday | date: 'longDate' }}</td>
+        <td id="myIcons"> 
+             <a
+             class ="glyphicon glyphicon-pencil"
+             href = "/contacts/{{contact._id}}" 
+             title = "Update"
+              >
+             </a> 
+             <a 
+             class="glyphicon glyphicon-trash"
+              href= "#" ng-click = "$ctrl.deleteContact(contact._id)"
+              title="Delete"
+             > 
+             </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
